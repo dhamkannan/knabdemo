@@ -33,14 +33,9 @@ jobs:
 
     - stage: Terraform apply
       script:
-        - ls -ltr
-        - chmod -R 777 ansible-playbooks
-        - ls -ltr
         - cd terraform-files
-        - pwd
-        - ls -ltr ../
         - echo "Executing changes in Terraform"
         - terraform init $tf_init_cli_options
-        - terraform apply $tf_apply_cli_options 2> 2.txt 1> 1.txt
-        - cat 2.txt
-        - cat 1.txt
+        - terraform apply $tf_apply_cli_options | tee output.txt
+        - cat output.txt | grep ec2- | awk -F'"' '{print $2}' > ../ansible-playbooks/inventory
+        - cat ../ansible-playbooks/inventory
