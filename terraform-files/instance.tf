@@ -76,8 +76,8 @@ resource "aws_instance" "nginx1" {
 }
 
 resource "local_file" "server_name" {
-    filename = "../ansible-playbooks/inventory"
-    content  = <<-EOT
+  filename = "../ansible-playbooks/inventory"
+  content  = <<-EOT
       [docker-hosts]
       ${aws_instance.nginx1.public_dns}
     EOT

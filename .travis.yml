@@ -22,8 +22,9 @@ jobs:
       script:
         - "travis_wait 30 sleep 30 &"
         - cd terraform-files
+        - ls -l
         - echo "Validating Terraform fmt"
-        - terraform fmt -check
+        - terraform fmt -recursive -check
         - echo "creating change plan"
         - terraform init $tf_init_cli_options
         - terraform validate $tf_validation_cli_options
