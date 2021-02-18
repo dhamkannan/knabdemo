@@ -75,13 +75,6 @@ resource "aws_instance" "nginx1" {
 
 }
 
-resource "local_file" "server_name" {
-  filename = "inventory"
-  content  = <<-EOT
-      [docker-hosts]
-      ${aws_instance.nginx1.public_dns}
-    EOT
-}
 ##################################################################################
 # OUTPUT
 ##################################################################################
