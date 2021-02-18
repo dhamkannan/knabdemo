@@ -4,7 +4,7 @@ language: bash
 
 # Export variables
 env:
-  - tf_version=0.14.7 tf_init_cli_options="-input=false" tf_validation_cli_options="" tf_plan_cli_options="-lock=false -input=false" tf_apply_cli_options="-auto-approve -input=false" tf_destroy_cli_options="-auto-approve"
+  - tf_version=0.14.7 tf_init_cli_options="-input=false" tf_validation_cli_options="" tf_plan_cli_options="-lock=false -input=false -var-flle=terraform.tfvars" tf_apply_cli_options="-auto-approve -input=false -var-flle=terraform.tfvars" tf_destroy_cli_options="-auto-approve"
 
 # Install dependencies
 before_install:
