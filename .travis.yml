@@ -41,6 +41,6 @@ jobs:
         - ls -ltr ../
         - echo "Executing changes in Terraform"
         - terraform init $tf_init_cli_options
-        - terraform apply $tf_apply_cli_options
+        - terraform apply $tf_apply_cli_options > tt.txt
         - ls -ltr 
         - ls -ltr ../
