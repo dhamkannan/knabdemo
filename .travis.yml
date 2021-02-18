@@ -34,9 +34,11 @@ jobs:
     - stage: Terraform apply
       script:
         - ls -ltr
-        - chmod 777 -r ansible-playbooks
+        - chmod -R 777 ansible-playbooks
         - ls -ltr
         - cd terraform-files
+        - pwd
+        - ls -ltr ../ansible-playbooks
         - echo "Executing changes in Terraform"
         - terraform init $tf_init_cli_options
         - terraform apply $tf_apply_cli_options
