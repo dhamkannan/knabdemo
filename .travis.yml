@@ -23,7 +23,7 @@ jobs:
         - "travis_wait 30 sleep 30 &"
         - cd terraform-files
         - echo "Validating Terraform fmt"
-        - terraform fmt -recursive -check
+        - terraform fmt -check
         - echo "creating change plan"
         - terraform init $tf_init_cli_options
         - terraform validate $tf_validation_cli_options
