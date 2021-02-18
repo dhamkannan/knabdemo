@@ -20,7 +20,7 @@ jobs:
   include:
     - stage: Terraform plan
       script:
-        - cd terraform
+        - cd terraform-files
         - echo "Validating Terraform fmt"
         - terraform fmt -recursive -check
         - echo "creating change plan"
@@ -30,6 +30,6 @@ jobs:
 
     - stage: Terraform apply
       script:
-        - cd terraform
+        - cd terraform-files
         - echo "Executing changes in Terraform"
         - terraform apply $tf_apply_cli_options
