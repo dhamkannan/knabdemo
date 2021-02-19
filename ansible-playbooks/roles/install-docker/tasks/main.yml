@@ -1,0 +1,31 @@
+---
+
+- name: install docker repo file
+  get_url:
+    url: "{{ DOCKER_REPO_FILE_PATH }}"
+    dest: "{{ YUM_TARGET_REPO_FOLDER }}"
+    mode: 0644
+
+#- name: install docker gpg file
+#  get_url:
+#    url: "{{ DOCKER_GPG_FILE_PATH }}"
+#    dest: "{{ GPG_TARGET_FOLDER }}"
+#    mode: 0644
+
+- name: install docker-ce
+  yum:
+    name:
+      - "docker-ce-{{ DOCKER_VERSION }}"
+    state: present
+
+- name: Make sure docker service is running & enabled
+  systemd:
+    enabled: yes
+    state: started
+    name: docker
+
+- name: Install docker-compose
+  get_url: 
+    url : https://github.com/docker/compose/releases/download/1.28.1/docker-compose-Linux-x86_64
+    dest: /usr/local/bin/docker-compose
+    mode: 'a+x'

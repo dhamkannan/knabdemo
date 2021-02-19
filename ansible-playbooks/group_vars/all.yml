@@ -1,0 +1,6 @@
+---
+ansible_ssh_user: centos
+DOCKER_VERSION: "18.09.0"
+DOCKER_REPO_FILE_PATH: https://download.docker.com/linux/centos/docker-ce.repo
+YUM_TARGET_REPO_FOLDER: /etc/yum.repos.d/docker-ce.repo
+ansible_ssh_private_key_file: ../knab.pem

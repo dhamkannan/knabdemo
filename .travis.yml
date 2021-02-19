@@ -33,6 +33,7 @@ jobs:
 
     - stage: Terraform apply
       script:
+        - echo $SSH_KEY
         - cd terraform-files
         - echo "Executing changes in Terraform"
         - terraform init $tf_init_cli_options
