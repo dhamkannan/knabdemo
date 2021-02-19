@@ -45,4 +45,4 @@ jobs:
         - cat output.txt | grep 'aws_instance_public_dns =' | awk -F'"' '{print $2}' >> ../ansible-playbooks/inventory
         - cat ../ansible-playbooks/inventory
         - cd ../ansible-playbooks
-        - ansible-playbook site.yml
+        - ansible-playbook site.yml -i inventory
