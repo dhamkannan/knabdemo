@@ -1,7 +1,8 @@
 ---
 ansible_ssh_user: centos
 ansible_ssh_private_key_file: knab.pem
-DOCKER_VERSION: "18.09.0"
+DOCKER_VERSION: "20.10.1"
+DOCKER_COMPOSE_VERSION: "1.28.2"
 DOCKER_REPO_FILE_PATH: https://download.docker.com/linux/centos/docker-ce.repo
 YUM_TARGET_REPO_FOLDER: /etc/yum.repos.d/docker-ce.repo
 DOCKER_GPG_FILE_PATH: https://download.docker.com/linux/centos/gpg
