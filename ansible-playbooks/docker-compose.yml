@@ -1,0 +1,10 @@
+version: '3'
+services:  
+  nginx:
+    image: nginx:latest
+    environment:
+      container: docker
+    hostname: nginx1
+    container_name: nginx1
+    ports:
+      - 80:80
