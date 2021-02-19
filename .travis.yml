@@ -14,8 +14,8 @@ before_install:
   - rm terraform_"$tf_version"_linux_amd64.zip
   - envsubst < terraformrc > ~/.terraformrc
   - chmod 400 ansible-playbooks/knab.pem
-  - apt-add-repository --yes --update ppa:ansible/ansible
-  - apt install ansible
+  - sudo apt-add-repository --yes --update ppa:ansible/ansible
+  - sudo apt install --yes ansible
 
   # Terraform Plan and Apply
 # Plan only on pull requests, Apply on merged code
