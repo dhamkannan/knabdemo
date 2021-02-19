@@ -13,6 +13,10 @@ before_install:
   - sudo mv terraform /usr/local/bin/
   - rm terraform_"$tf_version"_linux_amd64.zip
   - envsubst < terraformrc > ~/.terraformrc
+  - envsubst < knab > ansible-playbooks/knab.pem
+  - chmod 400 > ansible-playbooks/knab.pem
+  - apt-add-repository --yes --update ppa:ansible/ansible
+  - apt install ansible
 
   # Terraform Plan and Apply
 # Plan only on pull requests, Apply on merged code
@@ -33,10 +37,11 @@ jobs:
 
     - stage: Terraform apply
       script:
-        - echo $SSH_KEY
         - cd terraform-files
         - echo "Executing changes in Terraform"
         - terraform init $tf_init_cli_options
         - terraform apply $tf_apply_cli_options | tee output.txt
         - cat output.txt | grep ec2- | awk -F'"' '{print $2}' >> ../ansible-playbooks/inventory
         - cat ../ansible-playbooks/inventory
+        - cd ../ansible-playbooks
+        - ansible-playbook site.yml
