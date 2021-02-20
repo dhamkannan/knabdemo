@@ -40,8 +40,8 @@ jobs:
       script:
         - cd terraform-files
         - echo "Executing changes in Terraform"
-        - terraform taint output.aws_instance_public_dns
         - terraform init $tf_init_cli_options
+        - terraform taint output.aws_instance_public_dns
         - terraform apply $tf_apply_cli_options | tee output.txt
         - cat output.txt | grep 'ec2-' | awk -F'"' '{print $2}' >> ../ansible-playbooks/inventory
         - cat ../ansible-playbooks/inventory
