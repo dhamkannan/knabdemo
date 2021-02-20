@@ -50,17 +50,17 @@
     name: ['docker-py']
     state: present
 
-# - name: Deploy docker compose
-#   docker_compose:
-#     project_src: "."
-#     files:
-#       - "docker-compose.yml"
-#     state: present
+- name: Deploy docker compose
+  docker_compose:
+    project_src: "."
+    files:
+      - "docker-compose.yml"
+    state: present
 
-- name: Create a data container
-  docker_container:
-    name: nginx
-    image: nginx:latest
-    hostname: nginx1
-    ports:
-      - 80:80
+# - name: Create a data container
+#   docker_container:
+#     name: nginx
+#     image: nginx:latest
+#     hostname: nginx1
+#     ports:
+#       - 80:80

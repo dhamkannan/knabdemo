@@ -41,8 +41,8 @@ jobs:
         - cd terraform-files
         - echo "Executing changes in Terraform"
         - terraform init $tf_init_cli_options
-        # - terraform taint aws_instance.nginx1
-        # - terraform apply $tf_apply_cli_options | tee output.txt
+        - terraform taint aws_instance.nginx1
+        - terraform apply $tf_apply_cli_options | tee output.txt
         # - cat output.txt | grep 'ec2-' | awk -F'"' '{print $2}' >> ../ansible-playbooks/inventory
         - terraform state show aws_instance.nginx1 | grep 'ec2-' | awk -F'"' '{print $2}' >> ../ansible-playbooks/inventory
         - cat ../ansible-playbooks/inventory
