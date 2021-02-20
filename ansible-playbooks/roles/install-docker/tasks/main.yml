@@ -1,5 +1,12 @@
 ---
 
+- name: install pip
+  yum:
+    name:
+      - "epel-release"
+      - "python2-pip"
+    state: present
+
 - name: install docker repo file
   get_url:
     url: "{{ DOCKER_REPO_FILE_PATH }}"
