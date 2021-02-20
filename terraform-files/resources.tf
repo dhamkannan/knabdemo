@@ -30,7 +30,7 @@ provider "aws" {
 
 # Create VPC, Subget, RT, IGW
 module "network-components" {
-  source                  = ".\\Modules\\Network"
+  source                  = "./Modules/Network"
   network_address_space   = var.network_address_space
   subnet1_address_space   = var.subnet1_address_space
 }
@@ -39,7 +39,7 @@ module "network-components" {
 
 # Create Nginx instance#
 module "nginx-instance" {
-  source        = ".\\Modules\\EC2"
+  source        = "./Modules/EC2"
   key_name      = var.key_name
   instance_name = var.instance_name
   subnet_id     = module.network-components.subnet1.id
