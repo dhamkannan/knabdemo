@@ -1,4 +1,7 @@
 ---
+- name: Wait for system to become reachable
+  wait_for_connection:
+    timeout: 300
 
 - name: install pip
   yum:
@@ -44,9 +47,9 @@
 
 # - name: Deploy docker compose
 #   docker_compose:
-#     project_src: .
+#     project_src: "."
 #     files:
-#       - ".\docker-compose.yml"
+#       - "docker-compose.yml"
 #     state: present
 
 - name: Create a data container
