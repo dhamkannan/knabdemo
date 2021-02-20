@@ -30,6 +30,13 @@
     dest: /usr/local/bin/docker-compose
     mode: 'a+x'
 
+- name: Install dependent docker python modules
+  pip:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - docker-py
+
 # - name: Deploy docker compose
 #   docker_compose:
 #     project_src: .
