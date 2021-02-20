@@ -36,3 +36,11 @@
 #     files:
 #       - ".\docker-compose.yml"
 #     state: present
+
+- name: Create a data container
+  docker_container:
+    name: nginx
+    image: nginx:latest
+    hostname: nginx1
+    ports:
+      - 80:80
