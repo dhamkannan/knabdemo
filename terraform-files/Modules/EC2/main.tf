@@ -1,13 +1,4 @@
 ##################################################################################
-# VARIABLES
-##################################################################################
-
-variable "key_name" {
-  default = "knab"
-}
-
-
-##################################################################################
 # DATA
 ##################################################################################
 
@@ -36,9 +27,9 @@ data "aws_ami" "centos" {
 
 # SECURITY GROUPS #
 # Nginx security group 
-resource "aws_security_group" "nginx-sg" {
-  name   = "nginx_sg"
-  vpc_id = aws_vpc.vpc.id
+resource "aws_security_group" "instance-sg" {
+  name   = "${var.instance_name}_sg"
+  vpc_id = var.vpc_id
 
   # SSH access from anywhere
   ingress {
@@ -66,19 +57,11 @@ resource "aws_security_group" "nginx-sg" {
 }
 
 # INSTANCES #
-resource "aws_instance" "nginx1" {
+resource "aws_instance" "instance" {
   ami                    = data.aws_ami.centos.id
-  instance_type          = "t2.micro"
-  subnet_id              = aws_subnet.subnet1.id
-  vpc_security_group_ids = [aws_security_group.nginx-sg.id]
+  instance_type          = var.instance_type
+  subnet_id              = var.subnet_id
+  vpc_security_group_ids = [aws_security_group.instance-sg.id]
   key_name               = var.key_name
 
-}
-
-##################################################################################
-# OUTPUT
-##################################################################################
-
-output "aws_instance_public_dns" {
-  value = aws_instance.nginx1.public_dns
 }

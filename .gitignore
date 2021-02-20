@@ -1,4 +1,4 @@
 terraform-files/.terraform
-terraform/*.hcl
-.terraform.lock.hcl
+terraform-files/*.hcl
+terraform-files/old-files
 debug.log
