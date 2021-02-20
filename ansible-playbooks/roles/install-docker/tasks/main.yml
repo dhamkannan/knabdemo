@@ -3,10 +3,15 @@
   wait_for_connection:
     timeout: 300
 
-- name: install pip
+- name: install epel-release
   yum:
     name:
       - "epel-release"
+    state: present
+
+- name: install pip
+  yum:
+    name:
       - "python2-pip"
     state: present
 
