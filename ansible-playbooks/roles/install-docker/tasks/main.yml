@@ -62,6 +62,7 @@
     src: index.html
     dest: /data/index.html
     mode: '0644'
+    recurse: yes
 
 - name: Create a data container
   docker_container:
