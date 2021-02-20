@@ -42,7 +42,7 @@ jobs:
         - echo "Executing changes in Terraform"
         - terraform init $tf_init_cli_options
         - terraform apply $tf_apply_cli_options | tee output.txt
-        - cat output.txt | grep 'aws_instance_public_dns' | awk -F'"' '{print $2}' >> ../ansible-playbooks/inventory
+        - cat output.txt | grep 'ec2-' | awk -F'"' '{print $2}' >> ../ansible-playbooks/inventory
         - cat ../ansible-playbooks/inventory
         - cd ../ansible-playbooks
         - ansible-playbook site.yml -i inventory
