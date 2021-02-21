@@ -52,4 +52,4 @@ jobs:
         # - cd ../ansible-playbooks
         # - ansible-playbook site.yml -i inventory
         - cd ..
-        - python validate.py $(instanceName)
+        - python validate.py $instanceName
