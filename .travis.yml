@@ -45,7 +45,10 @@ jobs:
         # - terraform taint aws_instance.nginx1
         - terraform apply $tf_apply_cli_options | tee output.txt
         # - cat output.txt | grep 'ec2-' | awk -F'"' '{print $2}' >> ../ansible-playbooks/inventory
-        - terraform state show module.nginx-instance.aws_instance.instance | grep 'ec2-' | awk -F'"' '{print $2}' >> ../ansible-playbooks/inventory
+        # - terraform state show module.nginx-instance.aws_instance.instance | grep 'ec2-' | awk -F'"' '{print $2}' >> ../ansible-playbooks/inventory
+        - instanceName = $(terraform state show module.nginx-instance.aws_instance.instance | grep 'ec2-' | awk -F'"' '{print $2}')
+        - echo $instanceName ../ansible-playbooks/inventory
         - cat ../ansible-playbooks/inventory
-        - cd ../ansible-playbooks
-        - ansible-playbook site.yml -i inventory
+        # - cd ../ansible-playbooks
+        # - ansible-playbook site.yml -i inventory
+        - python validate.py $(instanceName)
