@@ -1,25 +1,4 @@
 ##################################################################################
-# VARIABLES
-##################################################################################
-variable "region" {
-  default = "ap-south-1"
-}
-
-variable "key_name" {
-}
-
-variable "instance_name" {
-}
-
-variable "network_address_space" {
-  default = "10.1.0.0/16"
-}
-
-variable "subnet1_address_space" {
-  default = "10.1.0.0/24"
-}
-
-##################################################################################
 # PROVIDERS
 ##################################################################################
 
@@ -33,6 +12,7 @@ module "network-components" {
   source                  = "./Modules/Network"
   network_address_space   = var.network_address_space
   subnet1_address_space   = var.subnet1_address_space
+  prefix                  = local.project_name
 }
 
 
@@ -44,6 +24,7 @@ module "nginx-instance" {
   instance_name = var.instance_name
   subnet_id     = module.network-components.subnet1.id
   vpc_id        = module.network-components.vpc.id
+  prefix        = local.project_name
 }
 
 

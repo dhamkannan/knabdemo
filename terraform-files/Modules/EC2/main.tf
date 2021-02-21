@@ -30,6 +30,9 @@ data "aws_ami" "centos" {
 resource "aws_security_group" "instance-sg" {
   name   = "${var.instance_name}_sg"
   vpc_id = var.vpc_id
+  tags = {
+    Name = "${var.prefix}-${var.instance_name}-sg"
+  }
 
   # SSH access from anywhere
   ingress {
@@ -63,5 +66,7 @@ resource "aws_instance" "instance" {
   subnet_id              = var.subnet_id
   vpc_security_group_ids = [aws_security_group.instance-sg.id]
   key_name               = var.key_name
-
+  tags = {
+    Name = "${var.prefix}-${var.instance_name}"
+  }
 }
