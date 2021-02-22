@@ -83,7 +83,7 @@ resource "aws_network_acl" "nacl" {
     to_port     = 65535
     protocol    = "tcp"
     cidr_block  = "0.0.0.0/0"
-    rule_no     = 201
+    rule_no     = 203
     action     = "allow"
   }
 
