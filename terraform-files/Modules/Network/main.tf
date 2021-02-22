@@ -53,3 +53,44 @@ resource "aws_route_table_association" "rta-subnet1" {
   subnet_id      = aws_subnet.subnet1.id
   route_table_id = aws_route_table.rtb.id
 }
+
+resource "aws_network_acl" "nacl" {
+  vpc_id = aws_vpc.vpc.id
+
+  # SSH access from anywhere
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_block = "0.0.0.0/0"
+    rule_no     = 200
+    action     = "allow"
+  }
+
+  # HTTP access from anywhere
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_block  = "0.0.0.0/0"
+    rule_no     = 201
+    action     = "allow"
+
+  }
+
+  # outbound internet access
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_block = "0.0.0.0/0"
+    rule_no     = 202
+    action     = "allow"
+  }
+
+  subnet_ids = [aws_subnet.subnet1.id]
+
+  tags = {
+    Name = "${var.prefix}-nacl"
+  }
+}
