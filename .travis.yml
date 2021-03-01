@@ -20,15 +20,15 @@ before_install:
   # Terraform Plan and Apply
 jobs:
   include:
-    - stage: Template Validation
-      script:
-        - cd terraform-files
-        - echo "Validating Terraform fmt"
-        - terraform fmt -recursive -check
-        - echo "creating change plan"
-        - terraform init $tf_init_cli_options
-        - terraform validate $tf_validation_cli_options
-        - terraform plan $tf_plan_cli_options
+    # - stage: Template Validation
+    #   script:
+    #     - cd terraform-files
+    #     - echo "Validating Terraform fmt"
+    #     # - terraform fmt -recursive -check
+    #     - echo "creating change plan"
+    #     - terraform init $tf_init_cli_options
+    #     - terraform validate $tf_validation_cli_options
+    #     - terraform plan $tf_plan_cli_options
 
     - stage: Deploy & configure environment
       script:
