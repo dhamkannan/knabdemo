@@ -1,5 +1,5 @@
-terraform-files/.terraform
-terraform-files/*.hcl
-terraform-files/old-files
+terraform-playbooks/.terraform
+terraform-playbooks/*.hcl
+terraform-playbooks/old-files
 debug.log
 .vscode
