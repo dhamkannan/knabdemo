@@ -3,3 +3,6 @@ terraform-playbooks/*.hcl
 terraform-playbooks/old-files
 debug.log
 .vscode
+terraform-files/.terraform
+terraform-files/*.hcl
+terraform-files/old-files
