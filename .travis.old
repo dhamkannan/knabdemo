@@ -13,34 +13,43 @@ before_install:
   - sudo mv terraform /usr/local/bin/
   - rm terraform_"$tf_version"_linux_amd64.zip
   - envsubst < terraformrc > ~/.terraformrc
+  - chmod 400 ansible-playbooks/knab.pem
+  # - sudo echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" >> /etc/apt/sources.list
+  # - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
   - sudo apt-add-repository --yes ppa:ansible/ansible
   - sudo apt --yes update
   - sudo apt install --yes ansible
 
   # Terraform Plan and Apply
+# Plan only on pull requests, Apply on merged code
 jobs:
   include:
-    - stage: Template Validation
-      script:
-        - cd terraform-playbooks
-        - echo "Validating Terraform fmt"
-        - terraform fmt -recursive -check
-        - echo "creating change plan"
-        - terraform init $tf_init_cli_options
-        - terraform validate $tf_validation_cli_options
-        - terraform plan $tf_plan_cli_options
+    # - stage: Terraform plan
+    #   script:
+    #     - ls -ltr
+    #     - chmod 777 -r ansible-playbooks
+    #     - ls -ltr
+    #     - cd terraform-files
+    #     - echo "Validating Terraform fmt"
+    #     - terraform fmt -recursive -check
+    #     - echo "creating change plan"
+    #     - terraform init $tf_init_cli_options
+    #     - terraform validate $tf_validation_cli_options
+    #     - terraform plan $tf_plan_cli_options
 
-    - stage: Deploy & configure environment
+    - stage: Terraform apply
       script:
-        - cd terraform-playbooks
+        - cd terraform-files
         - echo "Executing changes in Terraform"
         - terraform init $tf_init_cli_options
-        - terraform apply $tf_apply_cli_options
+        # - terraform taint aws_instance.nginx1
+        - terraform apply $tf_apply_cli_options | tee output.txt
+        # - cat output.txt | grep 'ec2-' | awk -F'"' '{print $2}' >> ../ansible-playbooks/inventory
+        # - terraform state show module.nginx-instance.aws_instance.instance | grep 'ec2-' | awk -F'"' '{print $2}' >> ../ansible-playbooks/inventory
         - instanceName=$(terraform state show module.nginx-instance.aws_instance.instance | grep 'ec2-' | awk -F'"' '{print $2}')
         - echo $instanceName >> ../ansible-playbooks/inventory
+        - cat ../ansible-playbooks/inventory
         - cd ../ansible-playbooks
         - ansible-playbook site.yml -i inventory
-
-    - stage: Validate Post Deployment
-      script:
+        - cd ..
         - python validateURL.py $instanceName
