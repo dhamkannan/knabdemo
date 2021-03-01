@@ -13,6 +13,7 @@ before_install:
   - sudo mv terraform /usr/local/bin/
   - rm terraform_"$tf_version"_linux_amd64.zip
   - envsubst < terraformrc > ~/.terraformrc
+  - chmod 400 ansible-playbooks/knab.pem
   - sudo apt-add-repository --yes ppa:ansible/ansible
   - sudo apt --yes update
   - sudo apt install --yes ansible
