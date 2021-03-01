@@ -97,6 +97,24 @@ resource "aws_network_acl" "nacl" {
     action     = "allow"
   }
 
+  egress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_block  = "0.0.0.0/0"
+    rule_no     = 205
+    action     = "allow"
+  }
+
+  egress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_block  = "0.0.0.0/0"
+    rule_no     = 206
+    action     = "allow"
+  }
+
   subnet_ids = [aws_subnet.subnet1.id]
 
   tags = {
